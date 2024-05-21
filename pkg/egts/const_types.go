@@ -31,9 +31,11 @@ const SrAdSensorsDataType = 18
 const SrCountersDataType = 19
 
 // SrType20 в зависимости от длины может содержать секцию EGTS_SR_STATE_DATA (если длина 5 байт) или EGTS_SR_ACCEL_DATA
+// !!! Гост - 20 подзапись - это EGTS_SR_STATE_DATA
 const SrType20 = 20
 
 // SrStateDataType код типа под записи EGTS_SR_STATE_DATA
+// !!! Гост - 21 подзапись - это EGTS_SR_ACCEL_DATA
 const SrStateDataType = 21
 
 // SrLoopInDataType код типа под записи EGTS_SR_TERM_IDENTITY_TYPE

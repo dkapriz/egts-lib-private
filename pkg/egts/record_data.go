@@ -55,14 +55,14 @@ func (rds *RecordDataSet) Decode(recDS []byte, protocolVersion byte) error {
 			rd.SubrecordData = &SrAdSensorsData{}
 		case SrType20:
 			// признак косвенный в спецификациях его нет
+			//!!! Гост 20 подзапись - это EGTS_SR_STATE_DATA
 			if rd.SubrecordLength == uint16(5) {
 				rd.SubrecordData = &SrStateData{}
 			} else {
-				// TODO: добавить секцию EGTS_SR_ACCEL_DATA
-				return fmt.Errorf("не реализованная секция EGTS_SR_ACCEL_DATA: %d. Длина: %d. "+
-					"Содержимое: %X", rd.SubrecordType, rd.SubrecordLength, subRecordBytes)
+				rd.SubrecordData = &SrAccelData{}
 			}
 		case SrStateDataType:
+			//!!! Гост 21 подзапись - это EGTS_SR_ACCEL_DATA
 			rd.SubrecordData = &SrStateData{}
 		case SrLiquidLevelSensorType:
 			rd.SubrecordData = &SrLiquidLevelSensor{}
@@ -118,7 +118,11 @@ func (rds *RecordDataSet) Encode(protocolVersion byte) ([]byte, error) {
 			case *SrAdSensorsData:
 				rd.SubrecordType = SrAdSensorsDataType
 			case *SrStateData:
+				//!!! Гост 21 подзапись - это EGTS_SR_ACCEL_DATA
 				rd.SubrecordType = SrStateDataType
+			case *SrAccelData:
+				//!!! Гост 20 подзапись - это EGTS_SR_STATE_DATA
+				rd.SubrecordType = SrType20
 			case *SrLiquidLevelSensor:
 				rd.SubrecordType = SrLiquidLevelSensorType
 			case *SrAbsCntrData:
