@@ -1,4 +1,4 @@
-module egts-lib-private
+module github.com/dkapriz/egts-lib-test
 
 go 1.22.2
 
